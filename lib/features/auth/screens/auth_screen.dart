@@ -121,7 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   padding: const EdgeInsets.all(8),
                   color: GlobalVariables.kBackgroundColor,
                   child: Form(
-                    key: _singUpFormKey,
+                    key: _singInFormKey,
                     child: Column(
                       children: [
                         CustomTextField(
@@ -135,7 +135,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         const SizedBox(height: 20),
                         CustomButton(
-                          text: 'Register',
+                          text: 'Signin',
                           onPressed: () {},
                         )
                       ],
