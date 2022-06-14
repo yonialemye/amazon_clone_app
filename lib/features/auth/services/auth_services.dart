@@ -46,4 +46,33 @@ class AuthService {
       displaySnackBar(context, e.toString());
     }
   }
+
+  // login user
+  Future<void> loginUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse("$uri/api/signin"),
+        body: jsonEncode({
+          "email": email,
+          "password": password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(response.body);
+
+      httpErrorHandler(
+        response: response,
+        context: context,
+        onSuccess: () {},
+      );
+    } catch (e) {
+      displaySnackBar(context, e.toString());
+    }
+  }
 }
