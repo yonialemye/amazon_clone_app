@@ -1,6 +1,7 @@
 import 'package:amazon_clone_app/commons/widgets/custom_button.dart';
 import 'package:amazon_clone_app/commons/widgets/custom_textfield.dart';
 import 'package:amazon_clone_app/constants/global_variables.dart';
+import 'package:amazon_clone_app/features/auth/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
 enum Auth {
@@ -21,6 +22,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> _singUpFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _singInFormKey = GlobalKey<FormState>();
 
+  final AuthService authService = AuthService();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -32,6 +35,15 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
 
     super.dispose();
+  }
+
+  void registerUser() {
+    authService.registerUser(
+      context: context,
+      name: _nameController.text,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
   }
 
   @override
@@ -93,7 +105,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 20),
                         CustomButton(
                           text: 'Register',
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_singUpFormKey.currentState!.validate()) registerUser();
+                          },
                         )
                       ],
                     ),
