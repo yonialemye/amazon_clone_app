@@ -90,4 +90,26 @@ class AuthService {
       displaySnackBar(context, e.toString());
     }
   }
+
+  // getUserData
+  Future<void> getUserData({
+    required BuildContext context,
+    required bool mounted,
+  }) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? token = preferences.getString('x-auth-token');
+
+      if (token == null) {
+        preferences.setString('x-auth-token', '');
+      }
+      await http.post(
+        Uri.parse('$uri/isTokenValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!,
+        },
+      );
+    } catch (e) {}
+  }
 }

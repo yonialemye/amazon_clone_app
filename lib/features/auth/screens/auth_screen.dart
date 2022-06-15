@@ -97,20 +97,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     key: _singUpFormKey,
                     child: Column(
                       children: [
-                        CustomTextField(
-                          controller: _nameController,
-                          hintText: 'Name',
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: 'Password',
-                        ),
+                        // CustomTextField(
+                        //   controller: _nameController,
+                        //   hintText: 'Name',
+                        // ),
+                        // const SizedBox(height: 10),
+                        // CustomTextField(
+                        //   controller: _emailController,
+                        //   hintText: 'Email',
+                        // ),
+                        // const SizedBox(height: 10),
+                        // CustomTextField(
+                        //   controller: _passwordController,
+                        //   hintText: 'Password',
+                        // ),
                         const SizedBox(height: 20),
                         CustomButton(
                           text: 'Register',
@@ -147,15 +147,15 @@ class _AuthScreenState extends State<AuthScreen> {
                     key: _singInFormKey,
                     child: Column(
                       children: [
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: 'Password',
-                        ),
+                        // CustomTextField(
+                        //   controller: _emailController,
+                        //   hintText: 'Email',
+                        // ),
+                        // const SizedBox(height: 10),
+                        // CustomTextField(
+                        //   controller: _passwordController,
+                        //   hintText: 'Password',
+                        // ),
                         const SizedBox(height: 20),
                         CustomButton(
                           text: 'Signin',
