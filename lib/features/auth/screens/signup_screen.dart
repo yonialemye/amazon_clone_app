@@ -1,27 +1,28 @@
-import 'package:amazon_clone_app/commons/widgets/custom_button.dart';
-import 'package:amazon_clone_app/commons/widgets/custom_textfield.dart';
-import 'package:amazon_clone_app/constants/global_variables.dart';
-import 'package:amazon_clone_app/features/auth/screens/signup_screen.dart';
+import 'package:amazon_clone_app/features/auth/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../commons/widgets/custom_button.dart';
 import '../../../commons/widgets/custom_text_button.dart';
+import '../../../commons/widgets/custom_textfield.dart';
+import '../../../constants/global_variables.dart';
 import '../services/auth_services.dart';
 import '../widgets/social_icon_button.dart';
 
-class SigninScreen extends StatefulWidget {
-  static const String routeName = '/login';
-  const SigninScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  static const String routeName = '/signup';
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<SigninScreen> createState() => _SigninScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SigninScreenState extends State<SigninScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
-  final GlobalKey<FormState> _singInFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _singUpFormKey = GlobalKey<FormState>();
 
   final AuthService authService = AuthService();
 
@@ -31,13 +32,15 @@ class _SigninScreenState extends State<SigninScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _nameController.dispose();
+
     super.dispose();
   }
 
-  void loginUser() {
-    authService.loginUser(
+  void registerUser() {
+    authService.registerUser(
       context: context,
-      mounted: mounted,
+      name: _nameController.text,
       email: _emailController.text,
       password: _passwordController.text,
     );
@@ -62,7 +65,7 @@ class _SigninScreenState extends State<SigninScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               physics: const BouncingScrollPhysics(),
               child: Form(
-                key: _singInFormKey,
+                key: _singUpFormKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,13 +74,24 @@ class _SigninScreenState extends State<SigninScreen> {
                       child: Image.asset('assets/images/logo.png'),
                     ),
                     const Text(
-                      'Sign in your account',
+                      'Sign up your account',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 30),
+                    const Text(
+                      'Name',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextField(
+                      controller: _nameController,
+                      hintText: 'Enter your name',
+                      errorMessage: 'name can not be empty',
+                    ),
+                    const SizedBox(height: 15),
                     const Text(
                       'Email',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -102,35 +116,25 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Switch(
-                              value: isTokenSaved,
-                              onChanged: (value) => setState(() => isTokenSaved = value),
-                              activeColor: GlobalVariables.kSecondaryColor,
-                            ),
-                            const Text(
-                              'Save me',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        Switch(
+                          value: isTokenSaved,
+                          onChanged: (value) => setState(() => isTokenSaved = value),
+                          activeColor: GlobalVariables.kSecondaryColor,
                         ),
-                        CustomTextButton(
-                          onPressed: () {},
-                          text: 'Forgot password?',
-                          buttonColor: Colors.grey.shade600,
+                        const Text(
+                          'Save me',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
                     CustomButton(
-                      text: "Login",
+                      text: "Register",
                       onPressed: () {
-                        if (_singInFormKey.currentState!.validate()) loginUser();
+                        if (_singUpFormKey.currentState!.validate()) registerUser();
                       },
                     ),
                     const SizedBox(height: 30),
@@ -180,12 +184,12 @@ class _SigninScreenState extends State<SigninScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Don't have an account yet?"),
+              const Text("Already have an account?"),
               CustomTextButton(
-                text: 'REGISTER',
+                text: 'Login',
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    SignupScreen.routeName,
+                    SigninScreen.routeName,
                     (route) => false,
                   );
                 },
