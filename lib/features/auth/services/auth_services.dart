@@ -103,13 +103,30 @@ class AuthService {
       if (token == null) {
         preferences.setString('x-auth-token', '');
       }
-      await http.post(
+      var tokenResult = await http.post(
         Uri.parse('$uri/isTokenValid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token!,
         },
       );
-    } catch (e) {}
+
+      var response = jsonDecode(tokenResult.body);
+
+      if (response == true) {
+        http.Response userResponse = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token,
+          },
+        );
+        if (!mounted) return;
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userResponse.body);
+      }
+    } catch (e) {
+      displaySnackBar(context, e.toString());
+    }
   }
 }
