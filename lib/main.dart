@@ -27,10 +27,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthService authService = AuthService();
+
   @override
   void initState() {
     super.initState();
-    authService.getUserData(context: context, mounted: mounted);
+    authService.getUserData(context, mounted);
   }
 
   @override

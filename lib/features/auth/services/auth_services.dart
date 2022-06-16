@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:amazon_clone_app/constants/error_handling.dart';
 import 'package:amazon_clone_app/constants/global_variables.dart';
@@ -77,7 +78,7 @@ class AuthService {
           SharedPreferences pref = await SharedPreferences.getInstance();
           if (!mounted) return;
           Provider.of<UserProvider>(context, listen: false).setUser(response.body);
-          await pref.setString('x-auth-token', jsonDecode(response.body)['token']);
+          await pref.setString(xAuthToken, jsonDecode(response.body)['token']);
           if (!mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -92,22 +93,19 @@ class AuthService {
   }
 
   // getUserData
-  Future<void> getUserData({
-    required BuildContext context,
-    required bool mounted,
-  }) async {
+  Future<void> getUserData(BuildContext context, bool mounted) async {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
-      String? token = preferences.getString('x-auth-token');
+      String? token = preferences.getString(xAuthToken);
 
       if (token == null) {
-        preferences.setString('x-auth-token', '');
+        preferences.setString(xAuthToken, '');
       }
       var tokenResult = await http.post(
         Uri.parse('$uri/isTokenValid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': token!,
+          xAuthToken: token!,
         },
       );
 
@@ -118,7 +116,7 @@ class AuthService {
           Uri.parse('$uri/'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token,
+            xAuthToken: token,
           },
         );
         if (!mounted) return;
