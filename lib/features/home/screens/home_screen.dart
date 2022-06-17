@@ -1,4 +1,6 @@
 import 'package:amazon_clone_app/constants/global_variables.dart';
+import 'package:amazon_clone_app/features/home/widgets/address_box.dart';
+import 'package:amazon_clone_app/features/home/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,10 +31,11 @@ class HomeScreen extends StatelessWidget {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: Container(
-            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
+            height: 48,
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
             child: TextFormField(
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(top: 15),
+                contentPadding: const EdgeInsets.all(2),
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
@@ -50,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                 isDense: true,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: Container(
-                  margin: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(left: 0, right: 10, top: 5, bottom: 5),
                   decoration: BoxDecoration(
                     color: GlobalVariables.kSecondaryColor,
                     borderRadius: BorderRadius.circular(10),
@@ -61,6 +64,7 @@ class HomeScreen extends StatelessWidget {
                     icon: const Icon(
                       Icons.keyboard_voice_outlined,
                       color: Colors.white,
+                      size: 16,
                     ),
                   ),
                 ),
@@ -70,7 +74,11 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: [],
+        children: const [
+          AddressBox(),
+          SizedBox(height: 15),
+          TopCategories(),
+        ],
       ),
     );
   }
