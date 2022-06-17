@@ -82,19 +82,19 @@ class DealOfTheDay extends StatelessWidget {
                 width: 200,
                 fit: BoxFit.fitWidth,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Image.network(
                 GlobalVariables.carouselImages[0],
                 width: 200,
                 fit: BoxFit.fitWidth,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Image.network(
                 GlobalVariables.carouselImages[0],
                 width: 200,
                 fit: BoxFit.fitWidth,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Image.network(
                 GlobalVariables.carouselImages[0],
                 width: 200,

@@ -27,7 +27,7 @@ class AppBarSecond extends StatelessWidget {
           ),
           const Spacer(),
           const Text(
-            'Admin',
+            'User',
             style: TextStyle(
               color: GlobalVariables.kSecondaryColor,
               fontWeight: FontWeight.bold,
