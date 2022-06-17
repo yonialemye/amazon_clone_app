@@ -29,26 +29,38 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GlobalVariables.kGreyBackgroundColor,
       body: pages[_currentIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: BottomNavyBar(
-            onItemSelected: changePage,
-            selectedIndex: _currentIndex,
-            showElevation: false,
-            backgroundColor: Colors.white,
-            items: [
-              _bottonNavyBarItem(iconData: Icons.home_outlined, text: 'Home'),
-              _bottonNavyBarItem(
-                iconData: Icons.shopping_cart_outlined,
-                text: 'Cart',
-                haveBadges: true,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                spreadRadius: 1,
+                offset: Offset(0, 3),
               ),
-              _bottonNavyBarItem(iconData: Icons.person_outline, text: 'Profile'),
             ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: BottomNavyBar(
+              onItemSelected: changePage,
+              selectedIndex: _currentIndex,
+              showElevation: false,
+              backgroundColor: Colors.white,
+              items: [
+                _bottonNavyBarItem(iconData: Icons.home_outlined, text: 'Home'),
+                _bottonNavyBarItem(
+                  iconData: Icons.shopping_cart_outlined,
+                  text: 'Cart',
+                  haveBadges: true,
+                ),
+                _bottonNavyBarItem(iconData: Icons.person_outline, text: 'Profile'),
+              ],
+            ),
           ),
         ),
       ),
