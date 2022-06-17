@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Amazon Clone',
       theme: ThemeData(
-        scaffoldBackgroundColor: GlobalVariables.kBackgroundColor,
+        scaffoldBackgroundColor: const Color(0xfff9f9fb),
         appBarTheme: const AppBarTheme(
           elevation: 0,
         ),

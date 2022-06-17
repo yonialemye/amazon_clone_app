@@ -16,16 +16,17 @@ class _MenuButtonsState extends State<MenuButtons> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: Offset(0, 0),
-              )
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: Offset(0, 0),
+            )
+          ],
+        ),
         child: Column(
           children: [
             const Text(
