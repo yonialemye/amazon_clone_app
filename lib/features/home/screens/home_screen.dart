@@ -1,9 +1,10 @@
 import 'package:amazon_clone_app/constants/global_variables.dart';
 import 'package:amazon_clone_app/features/home/widgets/address_box.dart';
+import 'package:amazon_clone_app/features/home/widgets/carousel_image.dart';
+import 'package:amazon_clone_app/features/home/widgets/deal_of_the_day.dart';
 import 'package:amazon_clone_app/features/home/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/user_provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(70.0),
+          preferredSize: const Size.fromHeight(55.0),
           child: Container(
             height: 48,
             margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
@@ -73,12 +74,18 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: const [
-          AddressBox(),
-          SizedBox(height: 15),
-          TopCategories(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            AddressBox(),
+            SizedBox(height: 15),
+            TopCategories(),
+            SizedBox(height: 15),
+            CarouselImage(),
+            SizedBox(height: 15),
+            DealOfTheDay(),
+          ],
+        ),
       ),
     );
   }
