@@ -1,3 +1,4 @@
+import 'package:amazon_clone_app/features/admin/screens/admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +27,23 @@ class AppBarSecond extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          const Text(
-            'User',
-            style: TextStyle(
-              color: GlobalVariables.kSecondaryColor,
-              fontWeight: FontWeight.bold,
+          InkWell(
+            onTap: () {
+              if (user.type != 'admin') return;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdminScreen(),
+                ),
+                (route) => false,
+              );
+            },
+            child: const Text(
+              'User',
+              style: TextStyle(
+                color: GlobalVariables.kSecondaryColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(width: 15),

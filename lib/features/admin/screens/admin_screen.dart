@@ -1,3 +1,4 @@
+import 'package:amazon_clone_app/commons/widgets/bottom_bar.dart';
 import 'package:amazon_clone_app/features/admin/screens/products_screen.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +39,22 @@ class _AdminScreenState extends State<AdminScreen> {
               height: 45,
               color: Colors.white,
             ),
-            const Text(
-              'Admin',
-              style: TextStyle(
-                color: GlobalVariables.kSecondaryColor,
-                fontWeight: FontWeight.bold,
+            InkWell(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BottomBar(),
+                  ),
+                  (route) => false,
+                );
+              },
+              child: const Text(
+                'Admin',
+                style: TextStyle(
+                  color: GlobalVariables.kSecondaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
