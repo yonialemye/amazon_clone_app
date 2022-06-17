@@ -1,3 +1,4 @@
+import 'package:amazon_clone_app/features/admin/screens/products_screen.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class _AdminScreenState extends State<AdminScreen> {
   int _currentIndex = 0;
 
   List<Widget> pages = [
-    const Center(child: Text('Post page')),
+    const ProductScreen(),
     const Center(child: Text('Analytics page')),
     const Center(child: Text('Cart page')),
   ];
@@ -71,7 +72,7 @@ class _AdminScreenState extends State<AdminScreen> {
               showElevation: false,
               backgroundColor: Colors.white,
               items: [
-                _bottonNavyBarItem(iconData: Icons.home_outlined, text: 'Post'),
+                _bottonNavyBarItem(iconData: Icons.home_outlined, text: 'Products'),
                 _bottonNavyBarItem(iconData: Icons.analytics_outlined, text: 'Anlaytics'),
                 _bottonNavyBarItem(iconData: Icons.all_inbox_outlined, text: 'Cart'),
               ],
