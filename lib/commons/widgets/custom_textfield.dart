@@ -7,12 +7,14 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     required this.errorMessage,
     this.isPassword = false,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
   final String errorMessage;
   final bool isPassword;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class CustomTextField extends StatelessWidget {
         if (value == null || value.isEmpty) return errorMessage;
         return null;
       },
+      maxLines: maxLines,
       obscureText: isPassword,
       enableSuggestions: isPassword,
       autocorrect: isPassword,
