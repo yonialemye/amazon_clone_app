@@ -6,6 +6,10 @@ import '../../../constants/global_variables.dart';
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key? key}) : super(key: key);
 
+  void gotoAddProductScreen(BuildContext context) {
+    Navigator.pushNamed(context, AddProductScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +18,7 @@ class ProductScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: GlobalVariables.kSecondaryColor,
-        onPressed: () {
-          Navigator.pushNamed(context, AddProductScreen.routeName);
-        },
+        onPressed: () => gotoAddProductScreen(context),
         tooltip: 'Add a product',
         child: const Icon(Icons.add),
       ),
