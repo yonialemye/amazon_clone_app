@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:amazon_clone_app/commons/widgets/custom_button.dart';
 import 'package:amazon_clone_app/commons/widgets/custom_textfield.dart';
+import 'package:amazon_clone_app/constants/utils.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +22,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   String category = 'Mobiles';
 
+  List<File> images = [];
+
   List<String> productCategories = [
     'Mobiles',
     'Essentials',
@@ -36,6 +41,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     super.dispose();
   }
 
+  void selectImages() async {
+    var imageHolder = await pickImages();
+    setState(() {
+      images = imageHolder;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,43 +61,46 @@ class _AddProductScreenState extends State<AddProductScreen> {
         child: Form(
           child: Column(
             children: [
-              DottedBorder(
-                color: Colors.grey[400]!,
-                dashPattern: const [10, 4],
-                child: SizedBox(
-                  width: double.maxFinite,
-                  height: 150,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.drive_folder_upload_outlined,
-                        size: 70,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(height: 7),
-                      Text(
-                        'Select a product image',
-                        style: TextStyle(
-                          color: Colors.black45,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+              InkWell(
+                onTap: selectImages,
+                child: DottedBorder(
+                  color: Colors.grey[400]!,
+                  dashPattern: const [10, 4],
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.drive_folder_upload_outlined,
+                          size: 70,
+                          color: Colors.grey,
                         ),
-                      ),
-                      SizedBox(height: 7),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          'Note: You should use a png image for better experiance',
-                          textAlign: TextAlign.center,
+                        SizedBox(height: 7),
+                        Text(
+                          'Select a product image',
                           style: TextStyle(
-                            color: Colors.black26,
-                            fontSize: 13,
+                            color: Colors.black45,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 7),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Note: You should use a png image for better experiance',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black26,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
