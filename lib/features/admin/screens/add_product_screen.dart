@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:amazon_clone_app/commons/widgets/custom_button.dart';
 import 'package:amazon_clone_app/commons/widgets/custom_textfield.dart';
 import 'package:amazon_clone_app/constants/utils.dart';
+import 'package:amazon_clone_app/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+
+  final AdminServices adminServices = AdminServices();
+
+  final _addProductFormKey = GlobalKey<FormState>();
 
   String category = 'Mobiles';
 
@@ -49,6 +54,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     });
   }
 
+  void sellProduct() async {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +79,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Form(
+          key: _addProductFormKey,
           child: Column(
             children: [
               images.isNotEmpty
@@ -143,13 +163,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               const SizedBox(height: 10),
               CustomTextField(
-                controller: productNameController,
+                controller: priceController,
                 hintText: 'Product price',
                 errorMessage: 'Please enter a product price',
               ),
               const SizedBox(height: 10),
               CustomTextField(
-                controller: productNameController,
+                controller: quantityController,
                 hintText: 'Product quantity',
                 errorMessage: 'Please enter a product quantity',
               ),
@@ -182,7 +202,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               const SizedBox(height: 20),
               CustomButton(
                 text: 'Sell Product',
-                onPressed: () {},
+                onPressed: sellProduct,
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 // importing from packages
 const express = require('express');
 const mongoose = require("mongoose");
+const adminRouter = require('./routes/admin');
 
 // importing from others files
 const authRouter = require('./routes/auth');
@@ -13,6 +14,7 @@ const db = "mongodb+srv://yonasalem:Alem3454@cluster0.ctswq.mongodb.net/?retryWr
 // midlleware
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 
 // connection
 mongoose.connect(db).then(() => {
