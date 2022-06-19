@@ -1,13 +1,13 @@
-import 'package:amazon_clone_app/commons/widgets/bottom_bar.dart';
 import 'package:amazon_clone_app/constants/global_variables.dart';
 import 'package:amazon_clone_app/features/admin/screens/admin_screen.dart';
-import 'package:amazon_clone_app/features/auth/screens/signin_screen.dart';
 import 'package:amazon_clone_app/features/auth/services/auth_services.dart';
-import 'package:amazon_clone_app/features/home/screens/home_screen.dart';
 import 'package:amazon_clone_app/provider/user_provider.dart';
 import 'package:amazon_clone_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'commons/widgets/bottom_bar.dart';
+import 'features/auth/screens/signin_screen.dart';
 
 void main() {
   runApp(

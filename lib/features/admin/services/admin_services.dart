@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:amazon_clone_app/constants/error_handling.dart';
@@ -61,5 +63,38 @@ class AdminServices {
     } catch (e) {
       displaySnackBar(context, e.toString());
     }
+  }
+
+  // get product
+  Future<List<Product>> fetchAllProduct(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Product> productList = [];
+    try {
+      http.Response response = await http.get(
+        Uri.parse("$uri/admin/get-product"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          xAuthToken: userProvider.user.token,
+        },
+      );
+
+      httpErrorHandler(
+        response: response,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(response.body).length; i++) {
+            productList.add(
+              Product.fromJson(
+                jsonEncode(jsonDecode(response.body)[i]),
+              ),
+            );
+            log("${jsonEncode(jsonDecode(response.body)[i])}\n");
+          }
+        },
+      );
+    } catch (e) {
+      displaySnackBar(context, e.toString());
+    }
+    return productList;
   }
 }
