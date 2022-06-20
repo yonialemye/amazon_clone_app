@@ -27,7 +27,9 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   void gotoAddProductScreen(BuildContext context) {
-    Navigator.pushNamed(context, AddProductScreen.routeName);
+    Navigator.pushNamed(context, AddProductScreen.routeName).whenComplete(() => {
+          fetchAllData(),
+        });
   }
 
   void deleteProduct(Product product, int index) {
@@ -42,9 +44,9 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     fetchAllData();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

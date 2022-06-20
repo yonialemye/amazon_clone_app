@@ -22,6 +22,7 @@ class AdminServices {
     required double quantity,
     required String category,
     required List<File> images,
+    required VoidCallback onSuccess,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -58,6 +59,7 @@ class AdminServices {
         onSuccess: () {
           displaySnackBar(context, "Product added successfully!");
           Navigator.pop(context);
+          onSuccess();
         },
       );
     } catch (e) {
@@ -112,7 +114,7 @@ class AdminServices {
           xAuthToken: userProvider.user.token,
         },
         body: jsonEncode({
-          "_id": product.id,
+          "id": product.id,
         }),
       );
 
@@ -122,7 +124,7 @@ class AdminServices {
         onSuccess: () => onSuccess(),
       );
     } catch (e) {
-      displaySnackBar(context, e.toString() + "hello");
+      displaySnackBar(context, e.toString());
     }
   }
 }
