@@ -56,10 +56,12 @@ class _ProductScreenState extends State<ProductScreen> {
         : Scaffold(
             body: GridView.builder(
               itemCount: productList!.length,
+              shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 final singleProduct = productList![index];
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: 140,
@@ -70,6 +72,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        const SizedBox(width: 25),
                         Expanded(
                           child: Text(
                             singleProduct.name,
@@ -81,6 +84,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           onPressed: () => deleteProduct(singleProduct, index),
                           icon: const Icon(Icons.delete_outline),
                         ),
+                        const SizedBox(width: 15),
                       ],
                     ),
                   ],
