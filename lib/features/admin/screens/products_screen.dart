@@ -30,6 +30,17 @@ class _ProductScreenState extends State<ProductScreen> {
     Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
+  void deleteProduct(Product product, int index) {
+    adminServices.deleteProduct(
+      context: context,
+      product: product,
+      onSuccess: () {
+        productList!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
+
   @override
   void initState() {
     fetchAllData();
@@ -65,7 +76,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () => deleteProduct(singleProduct, index),
                           icon: const Icon(Icons.delete_outline),
                         ),
                       ],
