@@ -1,29 +1,45 @@
-import 'package:amazon_clone_app/constants/global_variables.dart';
+import 'package:amazon_clone_app/commons/widgets/loader.dart';
 import 'package:amazon_clone_app/features/home/widgets/address_box.dart';
-import 'package:amazon_clone_app/features/home/widgets/carousel_image.dart';
-import 'package:amazon_clone_app/features/home/widgets/deal_of_the_day.dart';
-import 'package:amazon_clone_app/features/home/widgets/top_categories.dart';
-import 'package:amazon_clone_app/features/search/screens/search_screen.dart';
+import 'package:amazon_clone_app/features/search/services/search_services.dart';
+import 'package:amazon_clone_app/features/search/widgets/searched_product.dart';
+import 'package:amazon_clone_app/models/product.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../provider/user_provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const String routeName = '/home';
-  const HomeScreen({Key? key}) : super(key: key);
+import '../../../constants/global_variables.dart';
+
+class SearchScreen extends StatefulWidget {
+  static const String routeName = '/search-screen';
+  final String searchQuery;
+  const SearchScreen({Key? key, required this.searchQuery}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SearchScreenState extends State<SearchScreen> {
+  SearchServices searchServices = SearchServices();
+  List<Product>? product;
+
+  @override
+  void initState() {
+    fetchSearchedProducts();
+    super.initState();
+  }
+
+  fetchSearchedProducts() async {
+    product = await searchServices.fetchSearchedProduct(
+      context: context,
+      searchQuery: widget.searchQuery,
+    );
+    setState(() {});
+  }
+
   navigateToSearchScreen(String query) {
     Navigator.of(context).pushNamed(SearchScreen.routeName, arguments: query);
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF232f3f),
@@ -85,19 +101,24 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            AddressBox(),
-            SizedBox(height: 15),
-            TopCategories(),
-            SizedBox(height: 15),
-            CarouselImage(),
-            SizedBox(height: 15),
-            DealOfTheDay(),
-          ],
-        ),
-      ),
+      body: product == null
+          ? const Loader()
+          : Column(
+              children: [
+                const AddressBox(),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: product!.length,
+                    itemBuilder: (context, index) {
+                      return SearchedProduct(
+                        product: product![index],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

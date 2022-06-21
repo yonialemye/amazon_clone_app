@@ -59,6 +59,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         height: 170,
                         child: GridView.builder(
                             itemCount: productList!.length,
+                            scrollDirection: Axis.horizontal,
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 1,
                               childAspectRatio: 1.4,

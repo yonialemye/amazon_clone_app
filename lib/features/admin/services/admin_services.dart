@@ -90,7 +90,6 @@ class AdminServices {
                 jsonEncode(jsonDecode(response.body)[i]),
               ),
             );
-            log("${jsonEncode(jsonDecode(response.body)[i])}\n");
           }
         },
       );
