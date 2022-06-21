@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String uri = 'http://192.168.1.7:3000';
+const String uri = 'http://192.168.1.5:3000';
 const String xAuthToken = 'x-auth-token';
 
 class GlobalVariables {

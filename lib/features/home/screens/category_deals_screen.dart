@@ -53,49 +53,97 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                     style: const TextStyle(fontSize: 20),
                   ),
                 ),
-                productList!.isEmpty
-                    ? const SizedBox()
-                    : SizedBox(
-                        height: 170,
-                        child: GridView.builder(
-                            itemCount: productList!.length,
-                            scrollDirection: Axis.horizontal,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              childAspectRatio: 1.4,
-                              mainAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, index) {
-                              final product = productList![index];
-                              return Column(
-                                children: [
-                                  SizedBox(
-                                    height: 130,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black12, width: 0.5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Image.network(
-                                          product.images[0],
+                if (productList!.isEmpty)
+                  const SizedBox()
+                else
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: productList!.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: 0.7,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final product = productList![index];
+                        return Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black12,
+                                spreadRadius: 0.2,
+                                blurRadius: 8,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 120,
+                                width: double.maxFinite,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Image.network(
+                                  product.images[0],
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(width: double.maxFinite),
+                                      Text(
+                                        product.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "ETB: ${product.price.toString()}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "${product.quantity.toInt().toString()} Pieces left.",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    padding: const EdgeInsets.only(left: 0, right: 15, top: 5),
-                                    child: Text(
-                                      product.name,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
               ],
             ),
     );
