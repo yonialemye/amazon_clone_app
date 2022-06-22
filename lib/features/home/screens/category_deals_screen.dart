@@ -1,5 +1,6 @@
 import 'package:amazon_clone_app/commons/widgets/loader.dart';
 import 'package:amazon_clone_app/features/account/widgets/single_product.dart';
+import 'package:amazon_clone_app/features/detail/product_detail_screen.dart';
 import 'package:amazon_clone_app/features/home/services/home_services.dart';
 import 'package:amazon_clone_app/models/product.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,13 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
     );
 
     setState(() {});
+  }
+
+  navigateToProductDetailScreen(Product product) {
+    Navigator.of(context).pushNamed(
+      ProductDetailScreen.routeName,
+      arguments: product,
+    );
   }
 
   @override
@@ -95,43 +103,48 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final product = productList![index];
-                        return SingleProduct(
-                          imageSrc: product.images[0],
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: double.maxFinite),
-                              Text(
-                                product.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
+                        return GestureDetector(
+                          onTap: () {
+                            navigateToProductDetailScreen(product);
+                          },
+                          child: SingleProduct(
+                            imageSrc: product.images[0],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(width: double.maxFinite),
+                                Text(
+                                  product.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "ETB: ${product.price.toString()}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(height: 10),
+                                Text(
+                                  "ETB: ${product.price.toString()}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "${product.quantity.toInt().toString()} Pieces left.",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(height: 10),
+                                Text(
+                                  "${product.quantity.toInt().toString()} Pieces left.",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },
