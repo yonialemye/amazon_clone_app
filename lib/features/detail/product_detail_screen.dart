@@ -1,9 +1,12 @@
 import 'package:amazon_clone_app/commons/widgets/custom_button.dart';
 import 'package:amazon_clone_app/commons/widgets/stars.dart';
 import 'package:amazon_clone_app/constants/global_variables.dart';
+import 'package:amazon_clone_app/features/detail/services/product_detail_services.dart';
+import 'package:amazon_clone_app/provider/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../models/product.dart';
@@ -18,6 +21,29 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final ProductDetailServices productDetailServices = ProductDetailServices();
+
+  double averageRating = 0;
+  double myRating = 0;
+
+  @override
+  void initState() {
+    double totalRating = 0;
+
+    for (int i = 0; i < widget.product.rating!.length; i++) {
+      totalRating += widget.product.rating![i].rating;
+      if (widget.product.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.sId) {
+        myRating = widget.product.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      averageRating = totalRating / widget.product.rating!.length;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +125,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Stars(rating: 3.5)
+                          Stars(rating: averageRating)
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -168,7 +194,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   const SizedBox(height: 10),
                   RatingBar.builder(
-                    initialRating: 0,
+                    initialRating: myRating,
                     minRating: 1,
                     glow: true,
                     glowColor: GlobalVariables.kSecondaryColor,
@@ -180,7 +206,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       Icons.star,
                       color: GlobalVariables.kSecondaryColor,
                     ),
-                    onRatingUpdate: (value) {},
+                    onRatingUpdate: (rating) {
+                      productDetailServices.rateProduct(
+                        context: context,
+                        product: widget.product,
+                        rating: rating,
+                      );
+                    },
                   ),
                 ],
               ),
