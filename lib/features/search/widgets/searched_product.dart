@@ -19,27 +19,29 @@ class SearchedProduct extends StatelessWidget {
                 height: 135,
                 width: 135,
               ),
-              Column(
-                children: [
-                  Container(
-                    width: 235,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      product.name,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 16),
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 235,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        product.name,
+                        maxLines: 2,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 235,
-                    padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text(
-                      product.name,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 16),
+                    Container(
+                      width: 235,
+                      padding: const EdgeInsets.only(left: 10, top: 5),
+                      child: Text(
+                        product.name,
+                        maxLines: 2,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

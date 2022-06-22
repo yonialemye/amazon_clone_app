@@ -1,4 +1,5 @@
 import 'package:amazon_clone_app/commons/widgets/loader.dart';
+import 'package:amazon_clone_app/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_app/features/home/services/home_services.dart';
 import 'package:amazon_clone_app/models/product.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +46,41 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
           ? const Loader()
           : Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Keep shopping for ${widget.category}',
-                    style: const TextStyle(fontSize: 20),
+                if (productList!.isNotEmpty)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Keep shopping for ${widget.category}',
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
-                ),
                 if (productList!.isEmpty)
-                  const SizedBox()
+                  Column(
+                    children: [
+                      const SizedBox(
+                        width: double.maxFinite,
+                        height: 200,
+                      ),
+                      Image.asset(
+                        'assets/images/empty.png',
+                        height: 300,
+                      ),
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Text(
+                          "Their is no product in this category!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 else
                   Expanded(
                     child: GridView.builder(
@@ -69,73 +95,40 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final product = productList![index];
-                        return Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                spreadRadius: 0.2,
-                                blurRadius: 8,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
+                        return SingleProduct(
+                          imageSrc: product.images[0],
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                height: 120,
-                                width: double.maxFinite,
-                                padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Image.network(
-                                  product.images[0],
+                              const SizedBox(width: double.maxFinite),
+                              Text(
+                                product.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(width: double.maxFinite),
-                                      Text(
-                                        product.name,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        "ETB: ${product.price.toString()}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        "${product.quantity.toInt().toString()} Pieces left.",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "ETB: ${product.price.toString()}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "${product.quantity.toInt().toString()} Pieces left.",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
