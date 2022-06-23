@@ -6,6 +6,7 @@ import 'package:amazon_clone_app/constants/utils.dart';
 import 'package:amazon_clone_app/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -24,6 +25,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   final AdminServices adminServices = AdminServices();
 
+  final Faker faker = Faker.instance;
+
   final _addProductFormKey = GlobalKey<FormState>();
 
   String category = 'Mobiles';
@@ -37,6 +40,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion',
   ];
+
+  @override
+  void initState() {
+    productNameController.text = faker.commerce.productName();
+    descriptionController.text = faker.commerce.productDescription();
+    priceController.text = faker.commerce.price();
+    quantityController.text = faker.commerce.price(min: 1, max: 20, decimals: 0, symbol: '');
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -60,7 +72,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         context: context,
         name: productNameController.text,
         description: descriptionController.text,
-        price: double.parse(priceController.text),
+        price: double.parse(priceController.text.split('\$')[1]),
         quantity: double.parse(quantityController.text),
         category: category,
         images: images,
