@@ -1,9 +1,11 @@
 import 'package:amazon_clone_app/constants/global_variables.dart';
 import 'package:amazon_clone_app/features/account/screens/account_screen.dart';
 import 'package:amazon_clone_app/features/home/screens/home_screen.dart';
+import 'package:amazon_clone_app/provider/user_provider.dart';
 import 'package:badges/badges.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -72,6 +74,7 @@ class _BottomBarState extends State<BottomBar> {
     required String text,
     bool haveBadges = false,
   }) {
+    final userCartLength = context.watch<UserProvider>().user.cart.length;
     return BottomNavyBarItem(
       activeColor: GlobalVariables.kSecondaryColor,
       textAlign: TextAlign.center,
@@ -83,9 +86,9 @@ class _BottomBarState extends State<BottomBar> {
                 elevation: 0,
                 animationType: BadgeAnimationType.scale,
                 badgeColor: Colors.red.shade400,
-                badgeContent: const Text(
-                  '2',
-                  style: TextStyle(
+                badgeContent: Text(
+                  userCartLength.toString(),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
                   ),

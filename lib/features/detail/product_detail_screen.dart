@@ -44,6 +44,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     super.initState();
   }
 
+  void addToCart() {
+    productDetailServices.addToCart(context: context, product: widget.product);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,7 +237,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   child: CustomButton(
                     text: 'Add to cart',
                     color: Colors.orange[900],
-                    onPressed: () {},
+                    onPressed: addToCart,
                   ),
                 ),
               ],
