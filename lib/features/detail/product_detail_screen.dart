@@ -30,16 +30,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     double totalRating = 0;
 
-    for (int i = 0; i < widget.product.rating!.length; i++) {
-      totalRating += widget.product.rating![i].rating;
-      if (widget.product.rating![i].userId ==
+    for (int i = 0; i < widget.product.ratings!.length; i++) {
+      totalRating += widget.product.ratings![i].rating;
+      if (widget.product.ratings![i].userId ==
           Provider.of<UserProvider>(context, listen: false).user.sId) {
-        myRating = widget.product.rating![i].rating;
+        myRating = widget.product.ratings![i].rating;
       }
     }
 
     if (totalRating != 0) {
-      averageRating = totalRating / widget.product.rating!.length;
+      averageRating = totalRating / widget.product.ratings!.length;
     }
     super.initState();
   }
