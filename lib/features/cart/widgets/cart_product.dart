@@ -1,4 +1,5 @@
 import 'package:amazon_clone_app/features/account/widgets/single_product.dart';
+import 'package:amazon_clone_app/features/cart/services/cart_services.dart';
 import 'package:amazon_clone_app/features/detail/services/product_detail_services.dart';
 import 'package:amazon_clone_app/models/product.dart';
 import 'package:amazon_clone_app/provider/user_provider.dart';
@@ -16,8 +17,14 @@ class CartProduct extends StatefulWidget {
 
 class _CartProductState extends State<CartProduct> {
   final ProductDetailServices productDetailServices = ProductDetailServices();
-  addToCart(Product product) {
+  final CartServices cartServices = CartServices();
+
+  increaseQuantity(Product product) {
     productDetailServices.addToCart(context: context, product: product);
+  }
+
+  decreaseQuantity(Product product) {
+    cartServices.removeFromCart(context: context, product: product);
   }
 
   @override
@@ -64,7 +71,7 @@ class _CartProductState extends State<CartProduct> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => addToCart(product),
+                      onTap: () => increaseQuantity(product),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                         child: Icon(Icons.add),
@@ -78,9 +85,12 @@ class _CartProductState extends State<CartProduct> {
                       ),
                       child: Text(productCart['quantity'].toString()),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                      child: Icon(Icons.remove),
+                    InkWell(
+                      onTap: () => decreaseQuantity(product),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                        child: Icon(Icons.remove),
+                      ),
                     ),
                   ],
                 ),
