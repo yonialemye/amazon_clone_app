@@ -63,7 +63,7 @@ packages:
       name: cloudinary_public
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0"
+    version: "0.11.1"
   collection:
     dependency: transitive
     description:
@@ -112,7 +112,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:

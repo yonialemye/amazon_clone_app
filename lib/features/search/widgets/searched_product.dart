@@ -1,3 +1,4 @@
+import 'package:amazon_clone_app/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_app/models/product.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,46 +8,48 @@ class SearchedProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              Image.network(
-                product.images[0],
-                fit: BoxFit.fitHeight,
-                height: 135,
-                width: 135,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      child: SingleProduct(
+        layout: ProductLayout.horizontal,
+        imageSrc: product.images[0],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: double.maxFinite),
+            Text(
+              product.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        product.name,
-                        maxLines: 2,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Container(
-                      width: 235,
-                      padding: const EdgeInsets.only(left: 10, top: 5),
-                      child: Text(
-                        product.name,
-                        maxLines: 2,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "ETB: ${product.price.toString()}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "${product.quantity.toInt().toString()} Pieces left.",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

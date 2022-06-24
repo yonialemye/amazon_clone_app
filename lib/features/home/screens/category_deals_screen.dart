@@ -108,6 +108,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                             navigateToProductDetailScreen(product);
                           },
                           child: SingleProduct(
+                            layout: ProductLayout.vertical,
                             imageSrc: product.images[0],
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
